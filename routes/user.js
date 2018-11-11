@@ -21,7 +21,7 @@ router.get('/callback', (req, res, next) => {
     })(req, res, next)
 })
 
-router.get('logout', (req, res) => {
+router.get('/logout', (req, res) => {
     req.logout()
     res.redirect('/')
 })

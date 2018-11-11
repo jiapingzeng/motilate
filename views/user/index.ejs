@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>MOTILATE</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet"> 
+    <link rel="stylesheet" href="/style.css" />
+    <!-- development version, includes helpful console warnings -->
+<script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+  </head>
+  <style>
+      .player{
+          padding: 2rem;
+          /* border-bottom: 1px solid white; */
+          display: flex;
+          font-family: "Montserrat", sans-serif;
+          justify-content: space-between
+      }
+      footer{
+          width: 100%;
+          background: #222;
+          min-height: 10vh;
+          padding-top: 2rem;
+          font-family: "Montserrat", sans-serif;
+          text-align: center;
+      }
+      body{
+          height: auto
+      }
+      .event{
+          padding: 1rem;
+          border-bottom: 1px solid white;
+          margin-left: -1rem; margin-right: -1rem;
+          font-family: 'Montserrat', sans-serif
+      }
+      .event-location{
+          font-size: 0.88rem
+      }
+      .event-title{
+          font-size:1.25rem;
+      }
+      .event-row{
+          display: flex;
+          margin-bottom: 1rem;
+          flex-direction: row;
+          justify-content: space-between;
+      }
+      #body{
+          text-transform: capitalize;
+          min-height: 90vh;
+          display: flex;
+          justify-content: center;
+      }
+      h1{
+          margin-bottom: 1rem;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 2.5rem
+      }
+      #main{
+          max-width: 900px;
+          display: flex;
+          width: 100%;
+          padding-right: 1rem;
+          padding-left: 1rem;
+      }
+
+      #main > div{
+          flex-grow: 1;
+      }
+      #events-button{
+          padding: 1rem;
+          text-align: center;
+          border-radius: 8px;
+          font-family: "Montserrat", sans-serif;
+          border: 1px solid white;
+          transition: 0.33s;
+          cursor: pointer;
+          flex-grow: 0;
+          width: auto;
+      }
+      #user{
+          max-width: 47.7%
+      }
+      #events-button:hover{
+          background: #1976d2;
+          border: none;
+            margin: 1px;
+            -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.33);
+-moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.33);
+box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.33);
+      }
+     #events{
+
+         margin-bottom: 1rem;
+         border-radius: 16px;
+         max-width: 100%;
+     }
+     #scoreboard{
+        min-width: 60%;
+        min-height: 80vh;
+        height: auto;
+        text-align: left;
+        margin-bottom: 2rem;
+     }
+     #scoreboard-inner{
+         min-height: 100%; 
+         border-radius: 16px;
+         background: #2d2d2d;
+         margin-left: 4rem;
+         -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+     }
+      @media (max-width: 900px){
+          h1{
+              margin-left: 1rem;
+          }
+          #body{
+              min-height: 0;
+          }
+          #user{
+              max-width: 100%;
+          }
+          #main{
+              display: block;
+          }
+          .player{
+              padding: 1rem;
+              padding-top: 1.5rem
+          }
+          #scoreboard-inner{
+              margin: -0.75rem;
+              margin-bottom: 1rem;
+              margin-top: 1rem;
+              padding: 0rem
+          }
+      }
+      
+  </style>
+  <body>
+    <div style="max-width: 800px; width: 100%; margin: 0 auto">
+        <h1 id="user-name"></h1>
+    </div>
+  <div id="body">
+      
+      <div id="main">
+            <div id="user">
+                    <div id="events">
+                    </div>
+                    <div id="events-button">
+                        Add Event
+                    </div>
+                </div>
+                <div id="scoreboard">
+                    <div id="scoreboard-inner">
+                        
+                    </div>
+                </div>
+      </div>
+    </div>
+
+      <footer>
+          <a href="/user/logout">log out</a>
+      </footer>
+</body>
+
+  <script>
+      const userName = "Ryan Kwong"
+      $('#user-name').text(userName)
+      const events = [
+          {name: "Code Day", time: "11/11/2018", location: "Thoughtworks SF"},
+          {name: "CalHacks", time: "11/4/2018", location: "California Memorial Stadium"},
+          {name: "Apple Keynote", time: "10/30/2018", location: "Apple headquarters"}
+        ]
+    let players = [
+        {name: "Ryan Kwong", score: 6},
+        {name: "Kenneth", score: 7},
+        {name: "JP", score: Math.PI},
+        {name: "Aaron", score: 4},
+        {name: "Example", score: 3},
+        {name: "Longer names are OK", score: 2},
+        {name: "Shannon", score: 1.33},
+        {name: "Luke", score: 0}
+    ]
+    players.sort((a,b)=>-1*a.score+b.score)
+      function toEventHtml(name, time, location, id){
+          return `
+            <a href="/events/${id}">
+            <div class="event">
+                <div class="event-row">
+                <div class="event-title">${name}</div>
+                <div class="event-time">${time}</div>
+                </div>
+                <div style="display: flex; justify-content:space-between">
+                <div class="event-location">${location}</div>
+                <div>...</div>
+                </div>
+            </div>
+            </a>
+          `
+      }
+      function toPlayersHtml(name, score, i){
+          if (name == userName)
+            name="You"
+          switch(i){
+              case 0:
+              return `
+            <div class="player">
+                <div class="player-name" style="font-weight: bold; font-size: 1.25rem">${name}</div>
+                <div class="player-score" style="font-weight: bold;  font-size: 1.25rem">${score} 🥇</div>
+                </div>
+            </div>
+          `
+              case 1:
+              return `
+            <div class="player">
+                <div class="player-name" style="font-weight: bold; font-size: 1.25rem">${name}</div>
+                <div class="player-score" style="font-weight: bold;  font-size: 1.25rem">${score} 🏅</div>
+                </div>
+            </div>
+          `
+              case 2:
+              return `
+            <div class="player">
+                <div class="player-name" style="font-weight: bold; font-size: 1.25rem">${name}</div>
+                <div class="player-score" style="font-weight: bold;  font-size: 1.25rem">${score} 🥉</div>
+                </div>
+            </div>
+          `
+              default:
+              return`
+          <div class="player">
+                <div class="player-name">${name}</div>
+                <div class="player-score">${score}</div>
+                </div>
+            </div>
+          `
+          }
+    
+      }
+      const eventsElement = $('#events')
+      const scoreboardElement = $('#scoreboard-inner')
+
+      if(events.length == 0){
+          eventsElement.html(`
+            <div style="padding: 2rem; color: #FFFFFFAA; background: #FFFFFF11; border: 2px dashed #FFFFFF22 ">
+            You haven't been invited to any events :(
+            </div>
+            `)
+      } else {
+        events.forEach(i=>{
+          eventsElement.append(toEventHtml(i.name, i.time, i.location, i.id))
+        })
+      }
+
+      if(players.length == 0){
+        // TODO
+      } else {
+          const iEnd = players.length>9? 9 : players.length
+          for(let i = 0; i<9; i++){
+                scoreboardElement.append(toPlayersHtml(players[i].name, players[i].score, i))
+          }
+      }
+  </script>
+  <script>
+      let userLocation = {lat: 37.7749, lng: -122.4194}
+      function geoSuccess(lat, lng){
+          userLocation = {lat: lat, lng: lng}
+          console.log(`lat: ${lat}, lng: ${lng}`)
+      }
+    navigator.geolocation.watchPosition(
+        position => {
+            geoSuccess(position.coords.latitude, position.coords.longitude);
+        }, 
+        err => {
+            alert("Error getting location")
+        },
+        {enableHighAccuracy: true}
+    )
+  </script>
+  <script src="/script.js"></script>
+</html>
