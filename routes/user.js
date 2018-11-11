@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/dashboard', loggedIn(), (req, res) => {
+    const { _raw, _json, ...userProfile } = req.user
     res.render('user/dashboard', {
         userProfile: JSON.stringify(userProfile, null, 2),
         title: 'Dashboard'
