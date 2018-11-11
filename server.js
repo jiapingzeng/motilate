@@ -41,6 +41,6 @@ https.createServer({
   key: fs.readFileSync('server.key'),
   cert: fs.readFileSync('server.cert')
 }, app).listen(port, function () {
-  console.log(color.bold(color.green('The server has started on port: ')) +  `${port}`)
+console.log(color.green.bold('The server has started on port: ') +  `${port}`)
   
 })
