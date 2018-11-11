@@ -207,7 +207,7 @@
     const data = JSON.parse($('#data').text())
     const userName = data.displayName
     $('#user-name').text(userName)
-    const events = [
+    let events = [
         { name: "Code Day", time: "11/11/2018", location: "Thoughtworks SF" },
         { name: "CalHacks", time: "11/4/2018", location: "California Memorial Stadium" },
         { name: "Apple Keynote", time: "10/30/2018", location: "Apple Headquarters" }
@@ -227,9 +227,10 @@
         url: 'https://hasura-codeday.herokuapp.com/v1alpha1/graphql',
         contentType: 'application/json',
         data: JSON.stringify({
-            query: "{ user { name points }}"
+            query: "{ user { name points } event {name time location}}"
         })
     }).done((data) => {
+        console.log(data.data.event)
         players = []
         data.data.user.forEach((item) => {
             players.push({
