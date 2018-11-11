@@ -9,7 +9,7 @@ var userInViews = require('./middleware/userInViews');
 var authRouter = require('./routers/auth');
 var indexRouter = require('./routers/index');
 var usersRouter = require('./routers/users');
-//pizza
+
 var app = express()
 var port = process.env.PORT || 3000
 var session = require('express-session');
