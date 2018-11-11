@@ -38,7 +38,6 @@ app.use(userInView())
 app.use('/', index) //Routs default page to index route
 app.use('/event', event) //Routs event to event route
 app.use('/user', user) // Touts user to user route
-
 app.listen(port)
 //Creates the https server
 /*
