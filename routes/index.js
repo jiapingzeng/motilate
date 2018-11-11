@@ -5,6 +5,10 @@ router.get('/', (req, res) => {
     res.render('index')
 })
 
+router.get('/create', (req, res) => {
+    res.redirect('/event/create')
+})
+
 router.get('/login', (req, res) => { 
     res.redirect('/user/login')
 })
