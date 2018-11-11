@@ -29,7 +29,7 @@ https.createServer({
 
 // config express-session
 var sess = {
-  secret: 'CHANGE THIS SECRET',
+  secret: 'codeDaySecerte2018Fall',
   cookie: {},
   resave: false,
   saveUninitialized: true
