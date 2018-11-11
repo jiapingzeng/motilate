@@ -234,9 +234,12 @@
         { name: "Shannon", score: 1.33 },
         { name: "Luke", score: 0 }
     ]
-    setTimeout(function(){
+
+    window.onload = setTimeout(function(){
+        console.log('this works')
         alert("Good job on arriving on time and preventing an axe!")
-    },30*1000)
+    },5000)
+
     $.ajax({
         method: 'POST',
         url: 'https://hasura-codeday.herokuapp.com/v1alpha1/graphql',
@@ -254,6 +257,7 @@
                 score: item.points
             })
         })
+        
         data.data.event.forEach((item) => {
             events.push({
                 name: item.name,
@@ -277,6 +281,14 @@
                 eventsElement.append(toEventHtml(i.name, i.time, i.location, i.id))
             })
         }
+        const html = `<div id="see" style="
+    width: 100%;
+    margin: 1rem;
+    margin-bottom: 1.5rem;
+    text-align:center;
+    cursor: pointer;
+    " ><a href="/user/scoreboard">See all players</a></div>`
+    scoreboardElement.append(html)
 
     })
     function toEventHtml(name, time, location, id) {
@@ -338,14 +350,7 @@
     const scoreboardElement = $('#scoreboard-inner')
     $('#events-button').click(() => window.location.href = "/event/create")
 
-    const html = `<div id="see" style="
-    width: 100%;
-    margin: 1rem;
-    margin-bottom: 1.5rem;
-    text-align:center;
-    cursor: pointer;
-    " ><a href="/user/scoreboard">See all players</a></div>`
-    scoreboardElement.append(html)
+    
 </script>
 <script>
     let userLocation = { lat: 37.7749, lng: -122.4194 }
