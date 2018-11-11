@@ -4,29 +4,24 @@
     <meta charset="UTF-8">
     <title>MOTILATE</title>
     <link rel="stylesheet" href="/style.css" />
-    <!-- development version, includes helpful console warnings -->
-<script
-			  src="https://code.jquery.com/jquery-3.3.1.min.js"
-			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-			  crossorigin="anonymous"></script>
   </head>
   <body>
-  </body>
-  <script>
-      let userLocation = {lat: 37.7749, lng: -122.4194}
-      function geoSuccess(lat, lng){
-          userLocation = {lat: lat, lng: lng}
-          console.log(`lat: ${lat}, lng: ${lng}`)
-      }
-    navigator.geolocation.watchPosition(
-        position => {
-            geoSuccess(position.coords.latitude, position.coords.longitude);
-        }, 
-        err => {
-            alert("Error getting location")
-        },
-        {enableHighAccuracy: true}
-    )
-  </script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="/script.js"></script>
+  <script>
+        let userLocation = {lat: 37.7749, lng: -122.4194}
+        function geoSuccess(lat, lng){
+            userLocation = {lat: lat, lng: lng}
+            console.log(`lat: ${lat}, lng: ${lng}`)
+        }
+      navigator.geolocation.watchPosition(
+          position => {
+              geoSuccess(position.coords.latitude, position.coords.longitude);
+          }, 
+          err => {
+              alert("Error getting location")
+          },
+          {enableHighAccuracy: true}
+      )
+    </script>
 </html>
