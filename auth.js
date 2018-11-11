@@ -6,13 +6,14 @@ var config = require('config')
 var domain = process.env.domain ? process.env.domain : config.get('domain')
 var cID = process.env.cID ? process.env.cID : config.get('cID')
 var cS = process.env.cS ? process.env.cS : config.get('cS')
+var callbackURL = process.env.callbackURL ? process.env.callbackURL : config.get('callbackURL')
 
 //Instance information needed for authentication
 var strategy = new Auth0Strategy({
     domain: domain,
     clientID: cID,
     clientSecret: cS,
-    callbackURL: 'https://motilate.herokuapp.com/user/callback'
+    callbackURL: callbackURL
 }, (accessToken, refreshToken, extraParams, profile, done) => {
     return done(null, profile)
 })

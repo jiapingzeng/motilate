@@ -24,7 +24,7 @@ app.use(bodyParser.json())
 app.use(session({
   secret: 'dont tell anyone',
   cookie: {
-    secure: true
+    //secure: true
   },
   resave: false,
   saveUninitialized: true
