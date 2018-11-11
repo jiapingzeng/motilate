@@ -6,7 +6,6 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "aws-sdk": "^2.353.0",
     "cli-color": "^1.4.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
