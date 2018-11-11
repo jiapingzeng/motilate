@@ -150,6 +150,7 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
       
   </style>
   <body>
+      <div style="display:none" id="data"><%= userProfile %></div>
     <div style="max-width: 800px; width: 100%; margin: 0 auto">
         <h1 id="user-name"></h1>
     </div>
@@ -177,7 +178,8 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 </body>
 
   <script>
-      const userName = "Ryan Kwong"
+      const data = JSON.parse($('#data').text())
+      const userName = data.displayName
       $('#user-name').text(userName)
       const events = [
           {name: "Code Day", time: "11/11/2018", location: "Thoughtworks SF"},
@@ -197,7 +199,7 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     players.sort((a,b)=>-1*a.score+b.score)
       function toEventHtml(name, time, location, id){
           return `
-            <a href="/events/${id}">
+            <a href="/event/${id}">
             <div class="event">
                 <div class="event-row">
                 <div class="event-title">${name}</div>
@@ -252,7 +254,7 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
       }
       const eventsElement = $('#events')
       const scoreboardElement = $('#scoreboard-inner')
-      $('#events-button').click(()=>window.location.href = "/events/add")
+      $('#events-button').click(()=>window.location.href = "/event/add")
       if(events.length == 0){
           eventsElement.html(`
             <div style="padding: 2rem; color: #FFFFFFAA; background: #FFFFFF11; border: 2px dashed #FFFFFF22 ">

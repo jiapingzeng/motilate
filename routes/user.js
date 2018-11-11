@@ -12,7 +12,7 @@ router.get('/login', passport.authenticate('auth0', {
 
 router.get('/profile', loggedIn(), (req, res, next) => {
     const { _raw, _json, ...userProfile } = req.user
-    res.render('user/profile', {
+    res.render('dash', {
         userProfile: JSON.stringify(userProfile, null, 2),
         title: 'Profile'
     })
