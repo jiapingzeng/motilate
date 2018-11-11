@@ -1,6 +1,8 @@
+//All requirements for this file
 var passport = require('passport')
 var Auth0Strategy = require('passport-auth0')
 
+//Instance information needed for authentication
 var strategy = new Auth0Strategy({
     domain: 'codeday2018fall.auth0.com',
     clientID: 'Kp90PfE61zYbNvOqK8IF5vGt1h0WDEWa',

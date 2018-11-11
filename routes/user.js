@@ -21,12 +21,12 @@ router.get('/profile', loggedIn(), (req, res, next) => {
 router.get('/callback', (req, res, next) => {
     passport.authenticate('auth0', (err, user, info) => {
         if (err) return next(err)
-        if (!user) return res.redirect('/user/login')
+        if (!user) return res.redirect('/user/login') //If no user is detected redirect them to the login page
         req.logIn(user, (err) => {
             if (err) return next(err)
             const returnTo = req.session.returnTo
             delete req.session.returnTo
-            res.redirect(returnTo || '/user/profile')
+            res.redirect(returnTo || '/user/profile') //Otherwise redirect them to the profile page
         })
     })(req, res, next)
 })
