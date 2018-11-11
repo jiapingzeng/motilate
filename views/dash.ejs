@@ -19,12 +19,6 @@
           font-family: "Montserrat", sans-serif;
           justify-content: space-between
       }
-      .player-name{
-
-      }
-      .player-score{
-
-      }
       footer{
           width: 100%;
           background: #222;
@@ -55,6 +49,7 @@
           justify-content: space-between;
       }
       #body{
+          text-transform: capitalize;
           min-height: 90vh;
           display: flex;
           justify-content: center;
@@ -147,7 +142,7 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   </style>
   <body>
     <div style="max-width: 800px; width: 100%; margin: 0 auto">
-        <h1>Aaron Huang</h1>
+        <h1 id="user-name"></h1>
     </div>
   <div id="body">
       
@@ -173,13 +168,15 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 </body>
 
   <script>
+      const userName = "Ryan Kwong"
+      $('#user-name').text(userName)
       const events = [
           {name: "Code Day", time: "11/11/2018", location: "Thoughtworks SF"},
           {name: "CalHacks", time: "11/4/2018", location: "California Memorial Stadium"},
           {name: "Apple Keynote", time: "10/30/2018", location: "Apple headquarters"}
         ]
     let players = [
-        {name: "Ryan", score: 6},
+        {name: "Ryan Kwong", score: 6},
         {name: "Kenneth", score: 7},
         {name: "JP", score: Math.PI},
         {name: "Aaron", score: 4},
@@ -206,7 +203,7 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
           `
       }
       function toPlayersHtml(name, score, i){
-          if (name == "Aaron")
+          if (name == userName)
             name="You"
           switch(i){
               case 0:
