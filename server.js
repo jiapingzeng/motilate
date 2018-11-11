@@ -7,9 +7,7 @@ var session = require('express-session')
 var passport = require('passport')
 
 var Auth0Strategy = require('passport-auth0');
-var userInViews = require('./middleware/userInViews');
-var indexRouter = require('./routers/index');
-var authRouter = require('./routers/auth')
+var index = require('./routes/index')
 var event = require('./routes/event')
 var user = require('./routes/user')
 require('./auth.js')
