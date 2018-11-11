@@ -6,6 +6,7 @@ var https = require('https')
 var session = require('express-session')
 var passport = require('passport')
 var userInView = require('./lib/middleware/userInView')
+var color = require("cli-color");
 
 var index = require('./routes/index')
 var event = require('./routes/event')
@@ -40,5 +41,6 @@ https.createServer({
   key: fs.readFileSync('server.key'),
   cert: fs.readFileSync('server.cert')
 }, app).listen(port, function () {
-  console.log(`server started on port ${port}`)
+  console.log(color.bold(color.green('The server has started on port: ')) +  `${port}`)
+  
 })
