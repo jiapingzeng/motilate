@@ -74,3 +74,16 @@ passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
+// app.js
+
+var userInViews = require('./routes/middleware/userInViews');
+var authRouter = require('./routes/auth');
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+
+// ..
+app.use(userInViews());
+app.use('/', authRouter);
+app.use('/', indexRouter);
+app.use('/', usersRouter);
+// ..
