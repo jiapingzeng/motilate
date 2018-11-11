@@ -58,7 +58,7 @@ app.use(session(sess));
 // Configure Passport to use Auth0
 var strategy = new Auth0Strategy(
   {
-    domain: 'codeday2018fall.auth0.com',
+    domain: 'https://codeday2018fall.auth0.com',
     clientID: 'Kp90PfE61zYbNvOqK8IF5vGt1h0WDEWa',
     clientSecret: 'jkorKKZW6iEfuMUm8RufAEvany-J2kh03kB_vRWgVVvdxdoqTh56yuPTxhl5ad-B',
     callbackURL:
