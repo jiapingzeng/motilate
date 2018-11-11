@@ -6,9 +6,9 @@ var https = require('https')
 var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
 var userInViews = require('./middleware/userInViews');
-var authRouter = require('./routes/auth');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var authRouter = require('./routers/auth');
+var indexRouter = require('./routers/index');
+var usersRouter = require('./routers/users');
 //pizza
 var app = express()
 var port = process.env.PORT || 3000
