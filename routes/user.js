@@ -4,6 +4,17 @@ var path = require('path')
 var loggedIn = require('../lib/middleware/loggedIn')
 var router = express.Router()
 
+router.get('/', (req, res) => {
+    res.render('user/index')
+})
+
+router.get('/dashboard', loggedIn(), (req, res) => {
+    res.render('user/dashboard', {
+        userProfile: JSON.stringify(userProfile, null, 2),
+        title: 'Dashboard'
+    })
+})
+
 router.get('/login', passport.authenticate('auth0', {
     scope: 'openid email profile'
 }), (req, res) => {
