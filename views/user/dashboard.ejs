@@ -234,6 +234,9 @@
         { name: "Shannon", score: 1.33 },
         { name: "Luke", score: 0 }
     ]
+    setTimeout(function(){
+        alert("Good job on arriving on time and preventing an axe!")
+    },30*1000)
     $.ajax({
         method: 'POST',
         url: 'https://hasura-codeday.herokuapp.com/v1alpha1/graphql',
