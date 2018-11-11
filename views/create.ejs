@@ -247,9 +247,9 @@
             
             $.post('/test',
                 {name: name, time: time, location: location, gps: eventLocation, attendies :invitees}
-            ,()=>{alert("Successfully added event!"); window.location.href = "/dash"}, ()=>{alert("Failed to add event. Please try again later.")})
-         } )
-        // var data = {
+            ).done(()=>{alert("Successfully added event!"); window.location.href = "/dash"}).fail(()=>{alert("Failed to add event. Please try again later.")})
+  
+         } )      // var data = {
         //         store : { 
         //         }
         //     };
