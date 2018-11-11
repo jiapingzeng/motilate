@@ -3,11 +3,18 @@ var bodyParser = require('body-parser')
 var path = require('path')
 var fs = require('fs')
 var https = require('https')
+var passport = require('passport');
 
-// routes
-var index = require('./routes/index')
+var Auth0Strategy = require('passport-auth0');
+var userInViews = require('./middleware/userInViews');
+var indexRouter = require('./routers/index');
+var authRouter = require('./routers/auth')
 var event = require('./routes/event')
-var user = require('./routes/user')
+// var user = require('./routers/users')
+var usersRouter = require('./routers/users')
+var session = require('express-session');
+// routes
+
 
 var app = express()
 var port = process.env.PORT || 3000
@@ -18,27 +25,20 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use('/', index)
-app.use('/event', event)
-app.use('/user', user)
+// app.use('/', indexRouter)
+// app.use('/event', event)
+// app.use('/user', user)
 
 https.createServer({
     key: fs.readFileSync('server.key'),
     cert: fs.readFileSync('server.cert')
   }, app)
   .listen(port, function () {
-    console.log(`Example app listening on port ${port}! Go to https://localhost:3000/`)
+    console.log(`Server is up at port: ${port}!`)
   })
 
-/*
-var passport = require('passport');
-var Auth0Strategy = require('passport-auth0');
-var userInViews = require('./middleware/userInViews');
-var authRouter = require('./routers/auth');
-var indexRouter = require('./routers/index');
-var usersRouter = require('./routers/users');
 
-//pizza
+
 // config express-session
 var sess = {
   secret: 'codeDaySecert2018Fall',
@@ -58,9 +58,9 @@ app.use(session(sess));
 // Configure Passport to use Auth0
 var strategy = new Auth0Strategy(
   {
-    domain: process.env.AUTH0_DOMAIN,
-    clientID: process.env.AUTH0_CLIENT_ID,
-    clientSecret: process.env.AUTH0_CLIENT_SECRET,
+    domain: 'codeday2018fall.auth0.com',
+    clientID: 'Kp90PfE61zYbNvOqK8IF5vGt1h0WDEWa',
+    clientSecret: 'jkorKKZW6iEfuMUm8RufAEvany-J2kh03kB_vRWgVVvdxdoqTh56yuPTxhl5ad-B',
     callbackURL:
       process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
   },
@@ -85,12 +85,8 @@ passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
-// app.js
-
-// ..
 app.use(userInViews());
 app.use('/', authRouter);
 app.use('/', indexRouter);
 app.use('/', usersRouter);
-// ..
-*/
+
