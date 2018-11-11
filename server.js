@@ -5,11 +5,11 @@ var fs = require('fs')
 var https = require('https')
 var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
-var userInViews = require('.middleware/userInViews');
+var userInViews = require('./middleware/userInViews');
 var authRouter = require('./routes/auth');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+//pizza
 var app = express()
 var port = process.env.PORT || 3000
 var session = require('express-session');
