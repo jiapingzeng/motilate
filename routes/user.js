@@ -22,9 +22,9 @@ router.get('/login', passport.authenticate('auth0', {
     res.redirect('/')
 })
 
-router.get('/profile', loggedIn(), (req, res, next) => {
+router.get('/dashboard', loggedIn(), (req, res, next) => {
     const { _raw, _json, ...userProfile } = req.user
-    res.render('dash', {
+    res.render('user/dashboard', {
         userProfile: JSON.stringify(userProfile, null, 2),
         title: 'Profile'
     })
