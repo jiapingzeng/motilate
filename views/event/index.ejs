@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+    
+            * 
+            {
+                box-sizing:border-box;
+            }
+    
+            ul 
+            {
+                list-style-type: none;
+            }
+    
+            body 
+            {
+                font-family: Verdana, sans-serif;
+            }
+
+            li a:hover 
+            {
+                color:white;
+                background-color:red;
+                cursor:pointer;
+                padding:10px;
+            }
+    
+            li 
+            {
+                padding-bottom: 10px;
+                padding-top:10px;
+            }
+                
+            li a:hover
+            {
+                border-radius:100%;        
+            }
+       
+            .month 
+            {
+                padding: 70px 25px;
+                width: 100%;
+                background: #1abc9c;
+                text-align: center;
+            }
+
+            .month ul 
+            {
+                margin: 10px;
+                padding: 0;
+            }
+
+            .month ul li
+            {
+                color: white;
+                font-size: 20px;
+                text-transform: uppercase;
+                letter-spacing: 3px;
+            }
+
+            .month .prev 
+            {
+                float: left;
+                padding-top: 10px;
+            }
+
+            .month .next 
+            {
+                float: right;
+                padding-top: 10px;
+            }
+
+            .weekdays 
+            {
+                margin: 0;
+                padding: 10px 0;
+                background-color: #000666;
+            }
+
+            .weekdays li
+            {
+                display: inline-block;
+                width: 13.6%;
+                color: white;
+                text-align: center;
+            }
+
+            .days 
+            {
+                padding: 10px 0;
+                padding-bottom: 80px;
+                background: #eee;
+                margin: 0;
+            }
+    
+    
+            .days li 
+            {
+                list-style-type: none;
+                display: inline-block;
+                width: 13.6%;
+                text-align: center;
+                margin-bottom: 5px;
+                font-size:12px;
+                color: #777;
+            }
+    
+            /* Add media queries for smaller screens */
+            @media screen and (max-width:720px) 
+            {
+            .weekdays li, .days li {width: 13.1%;}
+            }
+
+            @media screen and (max-width: 420px) 
+            {
+                .weekdays li, .days li {width: 12.5%;}
+                .days li .active {padding: 2px;}
+            }
+
+            @media screen and (max-width: 290px) 
+            {
+                .weekdays li, .days li {width: 12.2%;}
+            }
+
+            
+            #Button
+            {
+                text-align: center;
+                Background-color:red;
+                width:140px;
+                height:40px;
+                margin: 0 auto;
+                cursor:pointer;
+                margin-top:15px;
+                border: 2px solid black;
+                padding-top:6px;
+                display:none;
+            }
+            
+        </style>
+    </head>
+<body>
+
+<h1>Motilate?</h1> 
+<div class="month">      
+  <ul>
+    <li class="prev"></li>
+    <li class="next"></li>
+    <li>November<br><span style="font-size:18px">2018</span></li>
+  </ul>
+</div>
+
+<ul class="weekdays">
+  <li>Mo</li>
+  <li>Tu</li>
+  <li>We</li>
+  <li>Th</li>
+  <li>Fr</li>
+  <li>Sa</li>
+  <li>Su</li>
+</ul>
+    
+<ul class="days"> 
+    <li>-</li>
+    <li>-</li>
+    <li>-</li>
+    <li><a onclick="myFunction()" class="dropbtn">1</a></li>
+    <li><a onclick="myFunction()">2</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">3</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">4</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">5</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">6</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">7</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">8</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">9</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">10</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">11</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">12</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">13</a></li> 
+    <li><a onclick="myFunction()" class="dropbtn">14</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">15</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">16</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">17</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">18</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">19</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">20</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">21</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">22</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">23</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">24</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">25</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">26</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">27</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">28</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">29</a></li>
+    <li><a onclick="myFunction()" class="dropbtn">30</a></li>
+</ul>
+    
+    <a id="special"><div id = "Button">Create event</div></a> 
+    
+<script>
+
+function myFunction() 
+    {
+        var x = document.getElementById("Button");
+        
+        x.style.display = "block";
+    }
+    
+</script>
+    
+    
+</body>
+</html>
