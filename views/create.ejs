@@ -26,10 +26,10 @@
         }
         #add{
             font-size: 2rem;
-            margin-left: 1rem;
             border-radius: 50%;
             background: #0966c2;
             transition: 0.5s;
+            width: 42px; display: flex; align-content: space-around; justify-content: space-around
         }
         #add:hover{
             background: #1976d2;
@@ -116,7 +116,7 @@
                 border-color: green;
 
             }
-            footer{
+            footer{margin-top: 2rem;
                 width: 100%;
                 height: auto;
                 padding: 2rem 0 2rem 0;
@@ -135,9 +135,8 @@
                 }
                 form{
                     min-width: 0px;
-                    width: 100%;
                     max-width: 100%;
-                    margin: 2rem;
+                    padding: 1rem;
                 }
             }
         </style>
@@ -154,14 +153,21 @@
             
 <span>Time and date</span>
                         <input id="time" type="datetime-local" required>
-            
+                        <span>Location</span>
+                        <input id="location" type="text" style="margin-bottom: 2rem;">
+                        <div id="map" style="height: 200px; width: 100%">
+                            
+                            <div style="display: flex; justify-content: center;align-content: center; width:100%; height: 200px; color: #FFFFFF55; border: 2px dashed #FFFFFF55; border-radius: 8px">
+                                <div style="align-self: center; flex-grow: 1; text-align:center">Loading...</div>
+                            </div>
+                        </div>
+
 <span>Invitees</span>
                         <div style="display: flex">
                             <input id="invite" type="text" name = "invitees" style = "flex-grow: 1">
-                            <input type='button' value='+' id='add' style = "width: 36px; height: 36px" />
+                            <input type='button' value='+' id='add' style = "" />
                         </div>
-                        
-                        <ul id='list' style = "list-style-type: none"; ></ul>
+                        <ul id='list' style = "list-style-type: none" ></ul>
                         <button type="submit" id="submit" > Submit </button>
                         
                     </form>
@@ -171,6 +177,23 @@
         </footer>
     </body>
     <script>
+            let userLocation = {lat: 37.7749, lng: -122.4194}
+            function geoSuccess(lat, lng){
+                userLocation = {lat: lat, lng: lng}
+                console.log(`lat: ${lat}, lng: ${lng}`)
+            }
+          navigator.geolocation.watchPosition(
+              position => {
+                  geoSuccess(position.coords.latitude, position.coords.longitude);
+              }, 
+              err => {
+                  alert("Error getting location")
+              },
+              {enableHighAccuracy: true}
+          )
+        </script>
+    <script>
+        let eventLocation = userLocation
         document.getElementById("add").onclick  = function() {
             if($("#invite").val().length <= 0){
                 return
@@ -187,16 +210,51 @@
             $("#list").append(li)
             
         }
-
         $('#list').on('click', '.btn-remove', function(){
             $(this).siblings()[0].remove()
+
             this.remove()
         });
+        function initialize(){
+            console.log("init success")
+            var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 14,
+            center: userLocation,
+            disableDefaultUI: true
+        });
+        var marker = new google.maps.Marker({
+                position: userLocation,
+                map: map,
+                title: 'New Event Location'
+            });
+        map.addListener('click', function(e){
+            lat = e.latLng.lat()
+            lng = e.latLng.lng()
+            eventLocation = {lat: lat, lng: lng};
+            marker.setPosition(new google.maps.LatLng(e.latLng.lat(), e.latLng.lng()))
+            console.log(eventLocation)  
+        })
+        }
+        $('#submit').click( (e)=>{
+            e.preventDefault()
+            // change this to request
+            let invitees = []
+            let lis = $('li')
+            for(let i = 0; i< lis.length; i++)
+                invitees.push(lis[i].innerHTML)
+            let name, time, location;
+            [name, time, location] = [$('#name').val() , $('#time').val(), $('#location').val()]
+            
+            $.post('/test',
+                {name: name, time: time, location: location, gps: eventLocation, attendies :invitees}
+            ,()=>{alert("Successfully added event!"); window.location.href = "/dash"}, ()=>{alert("Failed to add event. Please try again later.")})
+         } )
         // var data = {
         //         store : { 
         //         }
         //     };
         // $.post("./form", )
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_I088qmfh0z17OjKqhKCOxCvRj97a9HU&callback=initialize" async defer></script>
 
 </html>
