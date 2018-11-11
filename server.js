@@ -5,6 +5,10 @@ var fs = require('fs')
 var https = require('https')
 var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
+var userInViews = require('.middleware/userInViews');
+var authRouter = require('./routes/auth');
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
 var app = express()
 var port = process.env.PORT || 3000
@@ -75,11 +79,6 @@ passport.deserializeUser(function (user, done) {
 });
 
 // app.js
-
-var userInViews = require('./routes/middleware/userInViews');
-var authRouter = require('./routes/auth');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 // ..
 app.use(userInViews());
