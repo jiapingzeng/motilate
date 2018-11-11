@@ -222,6 +222,7 @@
             center: userLocation,
             disableDefaultUI: true
         });
+        var geocoder = new google.maps.Geocoder;
         var marker = new google.maps.Marker({
                 position: userLocation,
                 map: map,
@@ -232,7 +233,21 @@
             lng = e.latLng.lng()
             eventLocation = {lat: lat, lng: lng};
             marker.setPosition(new google.maps.LatLng(e.latLng.lat(), e.latLng.lng()))
-            console.log(eventLocation)  
+            console.log(eventLocation)
+            
+            geocoder.geocode({'location': eventLocation}, function(results, status) {
+            if (status === 'OK') {
+                if (results[0]) {
+                document.getElementById("location").value = results[0].formatted_address;
+                console.log(document.getElementById("location").value);
+                
+                } else {
+                window.alert('No results found');
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+            });  
         })
         }
         $('#submit').click( (e)=>{
