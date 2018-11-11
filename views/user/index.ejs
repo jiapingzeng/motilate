@@ -232,8 +232,6 @@
                 scoreboardElement.append(toPlayersHtml(players[i].name, players[i].score, i))
             }
         }
-    }).fail((err) => {
-        console.log(err)
     })
     
     function toEventHtml(name, time, location, id) {
