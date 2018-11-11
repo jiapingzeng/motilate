@@ -124,60 +124,71 @@
         height: auto;
         text-align: left;
         margin-bottom: 2rem;
-     }
-     img{
-         /* margin-top: 10px; */
-         width:1.5rem;
-         height:1.5rem;
-         -moz-transform: scaleX(-1);
+    }
+
+    img {
+        /* margin-top: 10px; */
+        width: 1.5rem;
+        height: 1.5rem;
+        -moz-transform: scaleX(-1);
         -o-transform: scaleX(-1);
         -webkit-transform: scaleX(-1);
         transform: scaleX(-1);
         filter: FlipH;
         -ms-filter: "FlipH";
-     }
-     #scoreboard-inner{
-         min-height: 100%; 
-         border-radius: 16px;
-         background: #2d2d2d;
-         margin-left: 4rem;
-         -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-     }
-      @media (max-width: 900px){
-          html{
-              overflow-x: hidden
-          }
-          h1{
-              margin-left: 1rem;
-          }
-          #body{
-              min-height: 0;
-              max-width: 100%
-          }
-          #user{
-              max-width: 100%;
-          }
-          #main{
-              display: block;
-          }
-          .player{
-              padding: 1rem;
-              padding-top: 1.5rem
-          }
-          #scoreboard-inner{
-              margin: -0.75rem;
-              margin-bottom: 1rem;
-              margin-top: 1rem;
-              padding: 0rem;
-              padding-bottom: 1rem;
-          }
-      }
-      
-  </style>
-  <body>
-      <div style="display:none" id="data"><%= userProfile %></div>
+    }
+
+    #scoreboard-inner {
+        min-height: 100%;
+        border-radius: 16px;
+        background: #2d2d2d;
+        margin-left: 4rem;
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    }
+
+    @media (max-width: 900px) {
+        html {
+            overflow-x: hidden
+        }
+
+        h1 {
+            margin-left: 1rem;
+        }
+
+        #body {
+            min-height: 0;
+            max-width: 100%
+        }
+
+        #user {
+            max-width: 100%;
+        }
+
+        #main {
+            display: block;
+        }
+
+        .player {
+            padding: 1rem;
+            padding-top: 1.5rem
+        }
+
+        #scoreboard-inner {
+            margin: -0.75rem;
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+            padding: 0rem;
+            padding-bottom: 1rem;
+        }
+    }
+</style>
+
+<body>
+    <div style="display:none" id="data">
+        <%= userProfile %>
+    </div>
     <div style="max-width: 800px; width: 100%; margin: 0 auto">
         <h1 id="user-name"></h1>
     </div>
@@ -228,15 +239,23 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
         url: 'https://hasura-codeday.herokuapp.com/v1alpha1/graphql',
         contentType: 'application/json',
         data: JSON.stringify({
-            query: "{ user { name points } event {name time location}}"
+            query: "{ user { name points } event { name time location }}"
         })
     }).done((data) => {
         console.log(data.data.event)
         players = []
+        events = []
         data.data.user.forEach((item) => {
             players.push({
                 name: item.name,
                 score: item.points
+            })
+        })
+        data.data.event.forEach((item) => {
+            events.push({
+                name: item.name,
+                time: item.time.substring(0,10) + " " + item.time.substring(11, 19),
+                location: item.location.name
             })
         })
         players.sort((a, b) => -1 * a.score + b.score)
@@ -244,8 +263,19 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
         for (let i = 0; i < iEnd; i++) {
             scoreboardElement.append(toPlayersHtml(players[i].name, players[i].score, i))
         }
+        if (events.length == 0) {
+            eventsElement.html(`
+            <div style="padding: 2rem; color: #FFFFFFAA; background: #FFFFFF11; border: 2px dashed #FFFFFF22 ">
+            You haven't been invited to any events :(
+            </div>
+            `)
+        } else {
+            events.forEach(i => {
+                eventsElement.append(toEventHtml(i.name, i.time, i.location, i.id))
+            })
+        }
+
     })
-    players.sort((a, b) => -1 * a.score + b.score)
     function toEventHtml(name, time, location, id) {
         return `
             <a href="/event/${id}">
@@ -294,7 +324,7 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
                 return `
           <div class="player">
                 <div class="player-name">${name}</div>
-                <div class="player-score">${score}</div>
+                <div class="player-score">${score} <img src="/axe.png"></img></div>
                 </div>
             </div>
           `
@@ -304,18 +334,6 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     const eventsElement = $('#events')
     const scoreboardElement = $('#scoreboard-inner')
     $('#events-button').click(() => window.location.href = "/event/create")
-    if (events.length == 0) {
-        eventsElement.html(`
-            <div style="padding: 2rem; color: #FFFFFFAA; background: #FFFFFF11; border: 2px dashed #FFFFFF22 ">
-            You haven't been invited to any events :(
-            </div>
-            `)
-    } else {
-        events.forEach(i => {
-            eventsElement.append(toEventHtml(i.name, i.time, i.location, i.id))
-        })
-    }
-
 
     const html = `<div id="see" style="
     width: 100%;

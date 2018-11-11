@@ -213,7 +213,7 @@
         url: 'https://hasura-codeday.herokuapp.com/v1alpha1/graphql',
         contentType: 'application/json',
         data: JSON.stringify({
-            query: "{ user { name points }}"
+            query: "{ user { name points } event { name time location }}"
         })
     }).done((data) => {
         players = []

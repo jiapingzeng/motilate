@@ -16,13 +16,17 @@ router.get('/dashboard', loggedIn(), (req, res) => {
     })
 })
 
+router.get('/profile', (req, res) => {
+    res.redirect('index')
+})
+
 router.get('/login', passport.authenticate('auth0', {
     scope: 'openid email profile'
 }), (req, res) => {
     res.redirect('/')
 })
 
-router.get('/dashboard', loggedIn(), (req, res, next) => {
+router.get('/index', loggedIn(), (req, res, next) => {
     const { _raw, _json, ...userProfile } = req.user
     res.render('user/dashboard', {
         userProfile: JSON.stringify(userProfile, null, 2),
