@@ -1,7 +1,7 @@
 // routes/users.js
 
 var express = require('express');
-var secured = require('../lib/middleware/secured');
+var secured = require('./middleware/secured');
 var router = express.Router();
 
 /* GET user profile. */
