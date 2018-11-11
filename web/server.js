@@ -2,7 +2,7 @@ const express = require('express')
 var fs = require('fs')
 var https = require('https')
 const app = express()
-
+//
 app.use(express.static('./'))
 app.get('/', function (req, res){
     console.log("request sent in")
