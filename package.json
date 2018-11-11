@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "ejs": "^2.6.1",
-    "expres": "0.0.5",
     "express": "^4.16.4"
   }
 }

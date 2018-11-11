@@ -18,10 +18,11 @@ app.use(bodyParser.json())
 app.get('/', (req, res) => {
     res.render('index')
 })
+
 https.createServer({
     key: fs.readFileSync('server.key'),
     cert: fs.readFileSync('server.cert')
   }, app)
   .listen(port, function () {
     console.log(`Example app listening on port ${port}! Go to https://localhost:3000/`)
-  })
+})
