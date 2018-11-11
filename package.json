@@ -7,6 +7,14 @@
   },
   "dependencies": {
     "ejs": "^2.6.1",
+<<<<<<< HEAD
     "express": "^4.16.4"
+=======
+    "expres": "0.0.5",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "passport": "^0.4.0",
+    "passport-auth0": "^1.1.0"
+>>>>>>> cf5964cb709cdccb9849689e28c7968b8fa755cd
   }
 }
