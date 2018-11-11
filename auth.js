@@ -8,7 +8,7 @@ var strategy = new Auth0Strategy({
     domain: process.env.domain,
     clientID: process.env.cID,
     clientSecret: process.env.cS,
-    callbackURL: 'https://localhost:3000/user/callback'
+    callbackURL: 'https://motilate.herokuapp.com/user/callback'
 }, (accessToken, refreshToken, extraParams, profile, done) => {
     return done(null, profile)
 })
