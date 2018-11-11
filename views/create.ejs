@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Add Event</title>
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+        </script>
+        <style type="text/css">
+            body {
+                text-align: center;
+                margin : 0;
+                padding : 0;
+                
+            }
+            
+            form * {
+                display: block;
+            }
+            
+            form {
+                text-align: left;
+                width: auto;
+                display: inline-block;
+            }
+            
+            li{
+                margin : 0;
+            }
+
+            .btn-remove{
+                display: block;
+                background : black;
+                color : white;
+                border-radius: 100%;
+                border: none;
+                cursor: pointer;
+                width : 18px;
+                height : 18px;
+                text-align : center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <form id="main">
+            <h1>Add an event</h1> 
+
+            Event Name:
+            <input id="name" type="text" required> 
+
+            When:
+            <input id="time" type="datetime-local" required>
+
+            Invitees:
+            <div style = "display : inline">
+                <input id="invite" type="text" name = "invitees" style = "display : inline" required>
+                <input type='button' value='add' id='add' style = "display : inline" />
+            </div>
+            
+            <ul id='list' style = "list-style-type: none"; ></ul>
+            <button type="submit" id="submit" > Submit </button>
+            
+        </form>
+    </body>
+    <script>
+        document.getElementById("add").onclick  = function() {
+            if($("#invite").val() === ""){
+                return
+            }
+            var text = $("#invite").val()
+            $("#invite").val("")
+            console.log(text)
+            var li = '<li>' + text + '</li>' + '<a class="btn-remove" style = "display : inline">X</a>'
+            li = `<div style = 'max-width : 100%'>
+                    <div style = "display : flex; justify-content : space-between; ; width : 100%">
+                        ${li}
+                    </div>
+                </div>`
+            $("#list").append(li)
+            
+        }
+
+        $('#list').on('click', '.btn-remove', function(){
+            $(this).siblings()[0].remove()
+            this.remove()
+        });
+        // var data = {
+        //         store : { 
+        //         }
+        //     };
+        // $.post("./form", )
+    </script>
+
+</html>
