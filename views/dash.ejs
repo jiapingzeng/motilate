@@ -12,6 +12,12 @@
 			  crossorigin="anonymous"></script>
   </head>
   <style>
+      #see{
+        font-family: "Montserrat", sans-serif;
+      }
+      #placeholder{
+          font-family: "Montserrat", sans-serif;
+      }
       .player{
           padding: 2rem;
           /* border-bottom: 1px solid white; */
@@ -49,7 +55,6 @@
           justify-content: space-between;
       }
       #body{
-          text-transform: capitalize;
           min-height: 90vh;
           display: flex;
           justify-content: center;
@@ -86,8 +91,7 @@
       }
       #events-button:hover{
           background: #1976d2;
-          border: none;
-            margin: 1px;
+          border-color: #1976d2;
             -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.33);
 -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.33);
 box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.33);
@@ -115,11 +119,15 @@ box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.33);
 box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
      }
       @media (max-width: 900px){
+          html{
+              overflow-x: hidden
+          }
           h1{
               margin-left: 1rem;
           }
           #body{
               min-height: 0;
+              max-width: 100%
           }
           #user{
               max-width: 100%;
@@ -135,7 +143,8 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
               margin: -0.75rem;
               margin-bottom: 1rem;
               margin-top: 1rem;
-              padding: 0rem
+              padding: 0rem;
+              padding-bottom: 1rem;
           }
       }
       
@@ -173,9 +182,9 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
       const events = [
           {name: "Code Day", time: "11/11/2018", location: "Thoughtworks SF"},
           {name: "CalHacks", time: "11/4/2018", location: "California Memorial Stadium"},
-          {name: "Apple Keynote", time: "10/30/2018", location: "Apple headquarters"}
+          {name: "Apple Keynote", time: "10/30/2018", location: "Apple Headquarters"}
         ]
-    let players = [
+    const players = [
         {name: "Ryan Kwong", score: 6},
         {name: "Kenneth", score: 7},
         {name: "JP", score: Math.PI},
@@ -243,7 +252,7 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
       }
       const eventsElement = $('#events')
       const scoreboardElement = $('#scoreboard-inner')
-
+      $('#events-button').click(()=>window.location.href = "/events/add")
       if(events.length == 0){
           eventsElement.html(`
             <div style="padding: 2rem; color: #FFFFFFAA; background: #FFFFFF11; border: 2px dashed #FFFFFF22 ">
@@ -256,14 +265,18 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
         })
       }
 
-      if(players.length == 0){
-        // TODO
-      } else {
-          const iEnd = players.length>9? 9 : players.length
-          for(let i = 0; i<9; i++){
-                scoreboardElement.append(toPlayersHtml(players[i].name, players[i].score, i))
-          }
-      }
+    const iEnd = players.length>9? 9 : players.length
+    for(let i = 0; i<iEnd; i++){
+        scoreboardElement.append(toPlayersHtml(players[i].name, players[i].score, i))
+    }
+    const html = `<div id="see" style="
+    width: 100%;
+    margin: 1rem;
+    margin-bottom: 1.5rem;
+    text-align:center;
+    cursor: pointer;
+    " ><a href="/user/scoreboard">See all players</a></div>`
+    scoreboardElement.append(html)
   </script>
   <script>
       let userLocation = {lat: 37.7749, lng: -122.4194}
