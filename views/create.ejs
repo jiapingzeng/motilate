@@ -3,79 +3,184 @@
     <head>
         <meta charset="UTF-8">
         <title>Add Event</title>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400" rel="stylesheet"> 
+
         <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous">
         </script>
         <style type="text/css">
-            body {
-                text-align: center;
-                margin : 0;
-                padding : 0;
-                
+        #main{
+        }
+        li{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        button[type="submit"]{
+            border-radius: 8px;
+            padding: 1rem;
+            border: 1px solid white;
+        }
+        #add{
+            font-size: 2rem;
+            margin-left: 1rem;
+            border-radius: 50%;
+            background: #0966c2;
+            transition: 0.5s;
+        }
+        #add:hover{
+            background: #1976d2;
+        }
+        input[type="text"], input[type="datetime-local"]{
+            background: inherit;
+            border: none;
+            font-size: 1.5rem;
+            border-bottom: 1px solid white;
+            color: inherit;
+        }
+        span{
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        button, input[type="button"]{
+            background: none;
+            cursor: pointer;
+            border: none;
+            color: inherit;
+        }
+
+        body{
+
+            font-family: 'Montserrat', sans-serif;
+
+            margin : 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding : 0;
+            background: #333;
+                color: #FAFAFA;
+
+            width: 100%;
+        }
+        html{
+            height: 100%
+        }
+            #body {
+                flex-grow: 1;
+                display: flex;
+                justify-content: center
             }
             
             form * {
                 display: block;
+                width: 100%;
             }
-            
+           
             form {
+                min-width: 500px;
                 text-align: left;
-                width: auto;
+                max-width: 900px;
+                margin: 0 auto;
                 display: inline-block;
             }
             
             li{
                 margin : 0;
+                font-size: 1.5rem;
             }
 
             .btn-remove{
-                display: block;
-                background : black;
+                font-size: 1.5rem;
+                display: flex;
+                width: 2rem;
+                height: 2rem;
+                flex-direction: column;
+                justify-content: center;
+                background : #FF000055;
                 color : white;
+                padding-top: -4px;
                 border-radius: 100%;
                 border: none;
                 cursor: pointer;
-                width : 18px;
-                height : 18px;
                 text-align : center;
+            }
+            button[type="submit"]{
+                transition: 0.33s;
+            }
+            button[type="submit"]:hover{
+                background: green;
+                border-color: green;
+
+            }
+            footer{
+                width: 100%;
+                height: auto;
+                padding: 2rem 0 2rem 0;
+                text-align: center;
+                background: #222;
+                
+            }
+            a{
+                text-decoration: none;
+            color: inherit
+            }
+            @media(max-width: 500px){
+                #body, #main{
+                    width: 100%;
+                    max-width: none;
+                }
+                form{
+                    min-width: 0px;
+                    width: 100%;
+                    max-width: 100%;
+                    margin: 2rem;
+                }
             }
         </style>
     </head>
 
     <body>
-        <form id="main">
-            <h1>Add an event</h1> 
-
-            Event Name:
-            <input id="name" type="text" required> 
-
-            When:
-            <input id="time" type="datetime-local" required>
-
-            Invitees:
-            <div style = "display : inline">
-                <input id="invite" type="text" name = "invitees" style = "display : inline" required>
-                <input type='button' value='add' id='add' style = "display : inline" />
-            </div>
+       
+        <div id="body">
+                <form id="main">
+                        <h1>Add an event</h1> 
             
-            <ul id='list' style = "list-style-type: none"; ></ul>
-            <button type="submit" id="submit" > Submit </button>
+ <span>Name</span>
+                        <input id="name" type="text" required> 
             
-        </form>
+<span>Time and date</span>
+                        <input id="time" type="datetime-local" required>
+            
+<span>Invitees</span>
+                        <div style="display: flex">
+                            <input id="invite" type="text" name = "invitees" style = "flex-grow: 1">
+                            <input type='button' value='+' id='add' style = "width: 36px; height: 36px" />
+                        </div>
+                        
+                        <ul id='list' style = "list-style-type: none"; ></ul>
+                        <button type="submit" id="submit" > Submit </button>
+                        
+                    </form>
+        </div>
+        <footer>
+                <a href="/user/logout">log out</a>
+        </footer>
     </body>
     <script>
         document.getElementById("add").onclick  = function() {
-            if($("#invite").val() === ""){
+            if($("#invite").val().length <= 0){
                 return
             }
             var text = $("#invite").val()
             $("#invite").val("")
             console.log(text)
-            var li = '<li>' + text + '</li>' + '<a class="btn-remove" style = "display : inline">X</a>'
-            li = `<div style = 'max-width : 100%'>
-                    <div style = "display : flex; justify-content : space-between; ; width : 100%">
+            var li = '<li>' + text + '</li>' + '<a class="btn-remove" style = "">×</a>'
+            li = `<div style = 'max-width : 100%; margin-top: 1rem;'>
+                    <div style = "margin-left: -40px; height: 100%; display : flex; justify-content : space-between; ; width : 100%">
                         ${li}
                     </div>
                 </div>`
